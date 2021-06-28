@@ -28,7 +28,19 @@ function App() {
       </form>
       <div className="grid grid-cols-3 gap-2 mt-20 container">
         {resultImages.map((val, i) => (
-          <img src={val.src.portrait} key={i} alt={val.photographer} />
+          <a
+            href={val.src.landscape}
+            target="_blank"
+            rel="noreferrer"
+            download={"test.jpg"}
+          >
+            <img
+              src={val.src.portrait}
+              className="rounded shadow"
+              key={i}
+              alt={val.photographer}
+            />
+          </a>
         ))}
       </div>
     </div>
@@ -36,7 +48,7 @@ function App() {
 
   async function searchImage(e) {
     e.preventDefault();
-    const url = `https://api.pexels.com/v1/search?query=${imageToSearch}&per_page=6`;
+    const url = `https://api.pexels.com/v1/search?query=${imageToSearch}&per_page=12`;
 
     const result = await axios.get(url, { headers });
 
@@ -44,7 +56,7 @@ function App() {
   }
 
   async function loadDefaultPhotos() {
-    const url = `https://api.pexels.com/v1/curated?per_page=6`;
+    const url = `https://api.pexels.com/v1/curated?per_page=12`;
     const result = await axios.get(url, { headers });
     setResultImages(result.data.photos);
   }
